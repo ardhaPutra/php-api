@@ -14,9 +14,17 @@ $inputJSON = file_get_contents('php://input');
 $input = json_decode($inputJSON, TRUE);
 
 // memperoleh data dari input
-$nama   = $input['nama'];
-$jumlah = $input['jumlah'];
-$harga  = $input['harga'];
+$nama       = $input['nama'];
+$jumlah     = $input['jumlah'];
+$harga      = $input['harga'];
+
+// generate barcode random
+$barcode = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+
+// timestamp saat ini
+$tanggal    = date('Y-m-d H:i:s');
+
+$kategori   = $input['kategorifk'];
 
 // validasi data
 if (empty($nama)) {
@@ -25,11 +33,12 @@ if (empty($nama)) {
 } 
 
 // query tambah data
-$query = "INSERT INTO barang (nama,jumlah,harga) VALUES ('$nama', '$jumlah', '$harga')";
+$query = "INSERT INTO barang (nama,jumlah,harga) VALUES ('$nama', '$jumlah', '$harga', $barcode, $tanggal, $kategori)";
 $hasil = mysqli_query($db, $query);
 
 if ($hasil) {
     echo json_encode(['success' => true, 'message' => 'Data berhasil ditambahkan.']);
+    echo '<script>alert("Data berhasil disimpan!");</script>';
 } else {    
     echo json_encode(['pesan' => 'Data barang Gagal Ditambahkan']);
 }

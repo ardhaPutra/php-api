@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2023 at 11:01 AM
+-- Generation Time: Mar 02, 2023 at 07:34 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -55,24 +55,45 @@ INSERT INTO `akun` (`id_akun`, `nama`, `username`, `email`, `password`, `level`)
 
 CREATE TABLE `barang` (
   `id_barang` int(11) NOT NULL,
-  `nama` varchar(50) NOT NULL,
-  `jumlah` varchar(50) NOT NULL,
-  `harga` varchar(50) NOT NULL,
+  `nama` varchar(50) DEFAULT NULL,
+  `jumlah` varchar(50) DEFAULT NULL,
+  `harga` varchar(50) DEFAULT NULL,
   `barcode` varchar(15) DEFAULT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `kategorifk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`id_barang`, `nama`, `jumlah`, `harga`, `barcode`, `tanggal`) VALUES
-(10, 'SSD', '4', '350000', '195424', '2023-01-30 16:55:49'),
-(11, 'Keyboard', '7', '75000', '595966', '2023-01-30 16:51:17'),
-(12, 'Monitor', '6', '1250000', '329631', '2023-01-30 16:51:32'),
-(14, 'RAM', '2', '400000', '513785', '2023-02-02 08:04:03'),
-(15, 'Keybkkoard', '2', '225000', '505399', '2023-02-27 06:52:15'),
-(20, 'gula', '5', '100000', NULL, '2023-02-28 07:58:18');
+INSERT INTO `barang` (`id_barang`, `nama`, `jumlah`, `harga`, `barcode`, `tanggal`, `kategorifk`) VALUES
+(10, 'SSD', '4', '350000', '195424', '2023-03-02 05:10:34', 1),
+(11, 'Keyboard', '7', '75000', '595966', '2023-03-02 05:10:44', 2),
+(12, 'Monitor', '6', '1250000', '329631', '2023-03-02 05:10:48', 2),
+(14, 'RAM', '2', '400000', '513785', '2023-03-02 05:10:51', 2),
+(15, 'Keybkkoard', '2', '225000', '505399', '2023-03-02 05:10:34', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kategori`
+--
+
+CREATE TABLE `kategori` (
+  `pk` int(11) NOT NULL,
+  `nm` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`pk`, `nm`) VALUES
+(1, 'makanan'),
+(2, 'Minuman'),
+(3, 'ATK'),
+(4, 'Lain-lain');
 
 -- --------------------------------------------------------
 
@@ -118,6 +139,12 @@ ALTER TABLE `barang`
   ADD PRIMARY KEY (`id_barang`);
 
 --
+-- Indexes for table `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`pk`);
+
+--
 -- Indexes for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
@@ -137,7 +164,13 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`

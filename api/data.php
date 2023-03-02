@@ -8,8 +8,23 @@ $dbname = "crud-php";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // Query untuk mengambil data dari database
-$sql = "SELECT id_barang, nama, jumlah, harga, barcode FROM barang";
+// $sql = "SELECT id_barang, nama, jumlah, harga, barcode, tanggal, kategorifk FROM barang";
+$sql = "SELECT 
+    barang.id_barang, 
+    barang.nama, 
+    barang.jumlah, 
+    barang.harga, 
+    barang.barcode, 
+    barang.tanggal, 
+    kategori.nm
+FROM barang
+INNER JOIN 
+    kategori 
+ON barang.kategorifk 
+    = kategori.pk";
+
 $result = mysqli_query($conn, $sql);
+
 
 // Mengubah hasil query menjadi array
 $data = array();
