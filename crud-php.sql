@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2023 at 07:34 AM
+-- Generation Time: Mar 02, 2023 at 08:53 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -72,7 +72,9 @@ INSERT INTO `barang` (`id_barang`, `nama`, `jumlah`, `harga`, `barcode`, `tangga
 (11, 'Keyboard', '7', '75000', '595966', '2023-03-02 05:10:44', 2),
 (12, 'Monitor', '6', '1250000', '329631', '2023-03-02 05:10:48', 2),
 (14, 'RAM', '2', '400000', '513785', '2023-03-02 05:10:51', 2),
-(15, 'Keybkkoard', '2', '225000', '505399', '2023-03-02 05:10:34', 1);
+(15, 'Keybkkoard', '2', '225000', '505399', '2023-03-02 05:10:34', 1),
+(32, 'jodie', '10000', '1000', '991468', '2023-03-02 00:46:16', 1),
+(33, 'jus', '50', '50000', '767290', '2023-03-02 00:46:47', 4);
 
 -- --------------------------------------------------------
 
@@ -164,7 +166,7 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `kategori`
