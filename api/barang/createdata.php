@@ -8,7 +8,7 @@ header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 header("Access-Control-Allow-Credentials", "true");
 
-require '../config/app.php';
+require_once(__DIR__ . '/../../config/app.php');
 
 // menerima input dari request POST
 $inputJSON = file_get_contents('php://input');
@@ -25,6 +25,7 @@ $barcode = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
 // timestamp saat ini
 $tanggal = date('Y-m-d H:i:s');
 $kategori = $input['kategorifk'];
+$satuan     = $input['satuanfk'];
 
 // validasi data
 if (empty($nama)) {
@@ -33,13 +34,12 @@ if (empty($nama)) {
 } 
 
 // query tambah data
-$query = "INSERT INTO barang (nama, jumlah, harga, barcode, tanggal, kategorifk) VALUES ('$nama', '$jumlah', '$harga', '$barcode', '$tanggal', '$kategori')";
+$query = "INSERT INTO barang (nama, jumlah, harga, barcode, tanggal, kategorifk, satuanfk) VALUES ('$nama', '$jumlah', '$harga', '$barcode', '$tanggal', '$kategori', '$satuan')";
 
 $hasil = mysqli_query($db, $query);
 
 if ($hasil) {
     echo json_encode(['success' => true, 'message' => 'Data berhasil ditambahkan.']);
-    echo '<script>alert("Data berhasil disimpan!");</script>';
 } else {    
     echo json_encode(['pesan' => 'Data barang Gagal Ditambahkan']);
 }

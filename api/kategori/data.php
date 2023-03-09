@@ -7,23 +7,10 @@ $dbname = "crud-php";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-// Query untuk mengambil data dari database
-$sql = "SELECT 
-    barang.id_barang, 
-    barang.nama, 
-    barang.jumlah, 
-    barang.harga, 
-    barang.barcode, 
-    barang.tanggal, 
-    kategori.nm
-FROM barang
-INNER JOIN 
-    kategori 
-ON barang.kategorifk 
-    = kategori.pk";
+// Query untuk mengambil data dari tabel kategori
+$sql = "SELECT pk, nm FROM kategori ORDER BY pk DESC";
 
 $result = mysqli_query($conn, $sql);
-
 
 // Mengubah hasil query menjadi array
 $data = array();

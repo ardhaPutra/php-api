@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2023 at 08:53 AM
+-- Generation Time: Mar 09, 2023 at 10:03 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -60,21 +60,22 @@ CREATE TABLE `barang` (
   `harga` varchar(50) DEFAULT NULL,
   `barcode` varchar(15) DEFAULT NULL,
   `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `kategorifk` int(11) NOT NULL
+  `kategorifk` int(11) NOT NULL,
+  `satuanfk` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`id_barang`, `nama`, `jumlah`, `harga`, `barcode`, `tanggal`, `kategorifk`) VALUES
-(10, 'SSD', '4', '350000', '195424', '2023-03-02 05:10:34', 1),
-(11, 'Keyboard', '7', '75000', '595966', '2023-03-02 05:10:44', 2),
-(12, 'Monitor', '6', '1250000', '329631', '2023-03-02 05:10:48', 2),
-(14, 'RAM', '2', '400000', '513785', '2023-03-02 05:10:51', 2),
-(15, 'Keybkkoard', '2', '225000', '505399', '2023-03-02 05:10:34', 1),
-(32, 'jodie', '10000', '1000', '991468', '2023-03-02 00:46:16', 1),
-(33, 'jus', '50', '50000', '767290', '2023-03-02 00:46:47', 4);
+INSERT INTO `barang` (`id_barang`, `nama`, `jumlah`, `harga`, `barcode`, `tanggal`, `kategorifk`, `satuanfk`) VALUES
+(10, 'SSD', '4', '350000', '195424', '2023-03-07 01:53:51', 1, 1),
+(11, 'Keyboard', '7', '75000', '595966', '2023-03-07 01:53:53', 2, 1),
+(14, 'RAM', '2', '400000', '513785', '2023-03-07 01:53:57', 2, 1),
+(45, 'ice tea', '2', '5000', '070410', '2023-03-07 01:54:02', 2, 1),
+(50, 'cream tea', '1', '5000', '162847', '2023-03-07 02:34:04', 2, 2),
+(51, 'barang145', '1', '6000', '658164', '2023-03-08 01:57:59', 2, 2),
+(52, 'french fries', '1', '8000', '270449', '2023-03-08 01:58:11', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -94,8 +95,7 @@ CREATE TABLE `kategori` (
 INSERT INTO `kategori` (`pk`, `nm`) VALUES
 (1, 'makanan'),
 (2, 'Minuman'),
-(3, 'ATK'),
-(4, 'Lain-lain');
+(3, 'ATK');
 
 -- --------------------------------------------------------
 
@@ -123,6 +123,67 @@ INSERT INTO `mahasiswa` (`id_mahasiswa`, `nama`, `prodi`, `jk`, `telepon`, `alam
 (6, 'Made', 'Manajemen', 'Laki-laki', '0345638476', '', 'made@mail.com', '63d7d7f376e05.png '),
 (7, 'Ni Luh', 'Manajemen', 'Perempuan', '4095864079', '', 'niluh@mail.com', '63d7d80a052df.png '),
 (8, 'Robert', 'Sistem Informasi', 'Laki-laki', '0468498', '<p>Jln. Pandjaitan no. 45 <strong>Jakarta Timur, <em>Prov/&nbsp;</em>Jakarta</strong></p>', 'robert@mail.com', '63da11cf5b74f.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pelanggan`
+--
+
+CREATE TABLE `pelanggan` (
+  `pk` int(10) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `telp` int(10) NOT NULL,
+  `alamat` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`pk`, `nama`, `telp`, `alamat`) VALUES
+(1, 'Agus', 34758678, 'Badung'),
+(2, 'Putu', 45680, 'Denpasar');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `satuan`
+--
+
+CREATE TABLE `satuan` (
+  `pk` int(10) NOT NULL,
+  `ns` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `satuan`
+--
+
+INSERT INTO `satuan` (`pk`, `ns`) VALUES
+(1, 'pcs'),
+(2, 'slop'),
+(3, 'gros');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier`
+--
+
+CREATE TABLE `supplier` (
+  `pk` int(10) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `telp` varchar(100) NOT NULL,
+  `alamat` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `supplier`
+--
+
+INSERT INTO `supplier` (`pk`, `nama`, `telp`, `alamat`) VALUES
+(1, 'UD Mertha Jati', '234767', 'Badung');
 
 --
 -- Indexes for dumped tables
@@ -153,6 +214,24 @@ ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`id_mahasiswa`);
 
 --
+-- Indexes for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  ADD PRIMARY KEY (`pk`);
+
+--
+-- Indexes for table `satuan`
+--
+ALTER TABLE `satuan`
+  ADD PRIMARY KEY (`pk`);
+
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`pk`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -166,19 +245,37 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
   MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  MODIFY `pk` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `satuan`
+--
+ALTER TABLE `satuan`
+  MODIFY `pk` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `pk` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
